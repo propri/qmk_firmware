@@ -1,3 +1,6 @@
-Layer 3 links
-Homerow Mods?
-
+[ X ] - Layer 3 links (-> fest capslock)
+[ X ] - Homerow Mods?
+[   ] - Homerow Mods + arrows in layer 3?
+[   ] - Homerow Mods + doppel Tap für Wiederholung?
+[   ] - Homerow Mods für Layer 3 rechts
+        + y on tap und layer 3 on hold
