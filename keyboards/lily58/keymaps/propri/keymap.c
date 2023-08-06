@@ -1,5 +1,8 @@
 #include QMK_KEYBOARD_H
 
+// hoffentlich seltener hold keys versehentlich getriggert
+#define PERMISSIVE_HOLD
+
 enum layer_number {
   _QWERTY = 0,
   _LOWER,
