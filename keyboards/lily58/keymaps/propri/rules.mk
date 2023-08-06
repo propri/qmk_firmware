@@ -10,6 +10,9 @@ RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 OLED_ENABLE= yes     # OLED display
 
+# enable dynamic changing of TAPPING_TERM
+DYNAMIC_TAPPING_TERM_ENABLE = yes
+
 # If you want to change the display of OLED, you need to change here
 SRC +=  ./lib/rgb_state_reader.c \
         ./lib/layer_state_reader.c \
