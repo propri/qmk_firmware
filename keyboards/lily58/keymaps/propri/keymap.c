@@ -10,6 +10,9 @@ enum layer_number {
   _ADJUST,
 };
 
+// combined key - layer 3 on hold, y on tap (with neo layout)
+#define NEO_LAYER3_Y LT(0, KC_QUOT)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* QWERTY
@@ -18,10 +21,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | Tab  |   Q  |   W  |   E  |   R  |   T  |                    |   Y  |   U  |   I  |   O  |   P  |  [   |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * | CAPS |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  | NUHS |
+ * |      |      |      |      |      |      |                    |      |      |      |      |      | NUHS |
+ * | CAPS |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
  * |------+------+------+------+------+------|  Del  |    |    ]  |------+------+------+------+------+------|
- * |      | (GUI)| (ALT)| (CTL)|(RALT)|      |       |    |       |      |(RALT)|(CTL) |(ALT) |      |(GUI) |
- * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |  '   |
+ * |      | (GUI)| (ALT)| (CTL)|(RALT)|      |       |    |       |      |(RALT)|(CTL) |(ALT) |      |      |
+ * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  | GUI  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   |      |      |      | /(SHFT) /       \(SHFT)\  |      |      |      |
  *                   | LAlt | LOWER| ESC  | /Enter  /       \Space \  |BackSP| RAISE| RCtl |
@@ -32,8 +36,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [_QWERTY] = LAYOUT(
   KC_ESC,  KC_1,         KC_2,         KC_3,         KC_4,         KC_5,                    KC_6, KC_7,         KC_8,            KC_9,           KC_0,    KC_GRV,
   KC_TAB,  KC_Q,         KC_W,         KC_E,         KC_R,         KC_T,                    KC_Y, KC_U,         KC_I,            KC_O,           KC_P,    KC_LBRC,
-  KC_NUHS, KC_A,         KC_S,         KC_D,         KC_F,         KC_G,                    KC_H, KC_J,         KC_K,            KC_L,           KC_SCLN, KC_NUHS,
-  KC_LSFT, LGUI_T(KC_Z), LALT_T(KC_X), LCTL_T(KC_C), RALT_T(KC_V), KC_B, KC_DEL,  KC_RBRC,  KC_N, RALT_T(KC_M), LCTL_T(KC_COMM), LALT_T(KC_DOT), KC_SLSH, LGUI_T(KC_QUOT),
+  KC_NUHS, KC_A,         KC_S,         KC_D,         KC_F,         KC_G,                    KC_H, KC_J,         KC_K,            KC_L,           KC_SCLN, NEO_LAYER3_Y,
+  KC_LSFT, LGUI_T(KC_Z), LALT_T(KC_X), LCTL_T(KC_C), RALT_T(KC_V), KC_B, KC_DEL,  KC_RBRC,  KC_N, RALT_T(KC_M), LCTL_T(KC_COMM), LALT_T(KC_DOT), KC_SLSH, KC_RGUI,
                                 KC_LALT, MO(_LOWER), KC_ESC, LSFT_T(KC_ENT),           RSFT_T(KC_SPC), KC_BSPC, MO(_RAISE), KC_RCTL
 ),
 /* LOWER
@@ -147,12 +151,33 @@ bool oled_task_user(void) {
 }
 #endif // OLED_ENABLE
 
+// Helper for implementing tap vs. long-press keys. Given a tap-hold
+// key event, replaces the hold function with `long_press_keycode`.
+static bool process_tap_or_long_press_custom_mod_key(
+        keyrecord_t* record, uint16_t long_press_keycode) {
+  if (record->tap.count == 0) { // Key is being held
+    if (record->event.pressed) {
+      // tap_code16 for tapping instead of holding the long_press_keycode
+      /*tap_code16(long_press_keycode);*/
+      register_code16(long_press_keycode);
+    } else {
+      unregister_code16(long_press_keycode);
+    }
+      return false; // Skip default handling.
+    }
+  return true; // Continue default handling.
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
 #ifdef OLED_ENABLE
     set_keylog(keycode, record);
 #endif
     // set_timelog();
+  }
+  switch (keycode) {
+    case NEO_LAYER3_Y:
+  return process_tap_or_long_press_custom_mod_key(record, KC_NUHS);
   }
   return true;
 }
