@@ -1,8 +1,9 @@
-[ X ] - Layer 3 links (-> fest capslock)
-[ X ] - Homerow Mods?
-[ X ] - Homerow Mods für Layer 3 rechts
-[   ] - Homerow Mods + arrows in layer 3?
-[   ] - Homerow Mods + doppel Tap für Wiederholung?
-[   ] - Neo Layer 4 in QMK nachbauen
-[   ] - Homerow Mods feintunen
+[X] - Layer 3 links (-> fest capslock)
+[X] - Homerow Mods?
+[X] - Homerow Mods für Layer 3 rechts
+[ ] - Homerow Mods + arrows in layer 4?
+[ ] - Homerow Mods + doppel Tap für Wiederholung?
+[ ] - Neo Layer 4 in QMK nachbauen
+[ ] - Homerow Mods feintunen
+[ ] - Combos für Mods statt Homerow Mods?
 
