@@ -8,10 +8,38 @@ enum layer_number {
   _LOWER,
   _RAISE,
   _ADJUST,
+  _NEO_4,
 };
 
 // combined key - layer 3 on hold, y on tap (with neo layout)
 #define NEO_LAYER3_Y LT(0, KC_QUOT)
+
+// keys for switching to layer 4. Separate alias to use in combo.
+#define NEO_LAYER4_MOMENTARY_LEFT LT(4, KC_V)
+#define NEO_LAYER4_MOMENTARY_RIGHT LT(4, KC_M)
+
+#define NL4M_L NEO_LAYER4_MOMENTARY_LEFT
+#define NL4M_R NEO_LAYER4_MOMENTARY_RIGHT
+
+// mod-tap shortcuts base layer
+#define MT_Z LGUI_T(KC_Z)
+#define MT_X LALT_T(KC_X)
+#define MT_C LCTL_T(KC_C)
+#define MT_V NEO_LAYER4_MOMENTARY_LEFT
+#define MT_M NEO_LAYER4_MOMENTARY_RIGHT
+#define MT_COMM LCTL_T(KC_COMM)
+#define MT_DOT LALT_T(KC_DOT)
+
+// define combos
+// both layer4 Taps to lock layer4
+const uint16_t PROGMEM combo_layer4_enable[] = {NEO_LAYER4_MOMENTARY_LEFT, NEO_LAYER4_MOMENTARY_RIGHT, COMBO_END};
+// both layer4 Taps on locked layer4 to return to default layer
+const uint16_t PROGMEM combo_layer4_disable[] = {KC_PENT, KC_P1, COMBO_END};
+
+combo_t key_combos[] = {
+  COMBO(combo_layer4_enable, TG(_NEO_4)),
+  COMBO(combo_layer4_disable, TG(_NEO_4)),
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -24,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |                    |      |      |      |      |      | NUHS |
  * | CAPS |   A  |   S  |   D  |   F  |   G  |-------.    ,-------|   H  |   J  |   K  |   L  |   ;  |  '   |
  * |------+------+------+------+------+------|  Del  |    |    ]  |------+------+------+------+------+------|
- * |      | (GUI)| (ALT)| (CTL)|(RALT)|      |       |    |       |      |(RALT)|(CTL) |(ALT) |      |      |
+ * |      | (GUI)| (ALT)| (CTL)| (L4) |      |       |    |       |      | (L4) |(CTL) |(ALT) |      |      |
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  | LGUI |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   |      |      |      | /(SHFT) /       \(SHFT)\  |      |      |      |
@@ -34,11 +62,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
  [_QWERTY] = LAYOUT(
-  KC_ESC,  KC_1,         KC_2,         KC_3,         KC_4,         KC_5,                    KC_6, KC_7,         KC_8,            KC_9,           KC_0,    KC_GRV,
-  KC_TAB,  KC_Q,         KC_W,         KC_E,         KC_R,         KC_T,                    KC_Y, KC_U,         KC_I,            KC_O,           KC_P,    KC_LBRC,
-  KC_NUHS, KC_A,         KC_S,         KC_D,         KC_F,         KC_G,                    KC_H, KC_J,         KC_K,            KC_L,           KC_SCLN, NEO_LAYER3_Y,
-  KC_LSFT, LGUI_T(KC_Z), LALT_T(KC_X), LCTL_T(KC_C), RALT_T(KC_V), KC_B, KC_DEL,  KC_RBRC,  KC_N, RALT_T(KC_M), LCTL_T(KC_COMM), LALT_T(KC_DOT), KC_SLSH, KC_LGUI,
-                                KC_LALT, MO(_LOWER), KC_ESC, LSFT_T(KC_ENT),           RSFT_T(KC_SPC), KC_BSPC, MO(_RAISE), KC_RCTL
+  KC_ESC,  KC_1, KC_2, KC_3, KC_4, KC_5,                    KC_6, KC_7, KC_8,    KC_9,   KC_0,    KC_GRV,
+  KC_TAB,  KC_Q, KC_W, KC_E, KC_R, KC_T,                    KC_Y, KC_U, KC_I,    KC_O,   KC_P,    KC_LBRC,
+  KC_NUHS, KC_A, KC_S, KC_D, KC_F, KC_G,                    KC_H, KC_J, KC_K,    KC_L,   KC_SCLN, NEO_LAYER3_Y,
+  KC_LSFT, MT_Z, MT_X, MT_C, MT_V, KC_B, KC_DEL,  KC_RBRC,  KC_N, MT_M, MT_COMM, MT_DOT, KC_SLSH, KC_LGUI,
+   KC_LALT, MO(_LOWER), KC_ESC, LSFT_T(KC_ENT),    RSFT_T(KC_SPC), KC_BSPC, MO(_RAISE), KC_RCTL
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -47,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |                    |  F7  |  F8  |  F9  | F10  | F11  | F12  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |   `  |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  |   &  |   *  |   (  |   )  |   -  |
- * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
+ * |------+------+------+------+------+------|  Del  |    |    ]  |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------|    |-------|      |   _  |   +  |   {  |   }  |   |  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   |      |      |      | /(SHFT) /       \(SHFT)\  |      |      |      |
@@ -69,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |   `  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |-------.    ,-------|      | Left | Down |  Up  |Right |      |
- * |------+------+------+------+------+------|   [   |    |    ]  |------+------+------+------+------+------|
+ * |------+------+------+------+------+------|  Del  |    |    ]  |------+------+------+------+------+------|
  * |  F7  |  F8  |  F9  | F10  | F11  | F12  |-------|    |-------|   +  |   -  |   =  |   [  |   ]  |   \  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   |      |      |      | /(SHFT) /       \(SHFT)\  |      |      |      |
@@ -107,8 +135,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DT_PRNT, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DT_DOWN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BRID, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                              _______, _______, _______, _______, _______,  _______, _______, _______
-  )
+  ),
+
+/* NEO LAYER 4 equivalent
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |      |PG_UP |BackSP|  UP  | Del  |PG_DWN|                    |      |  7   |  8   |  9   |  +   |  -   |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |      | HOME | LEFT | DOWN |RIGHT | END  |-------.    ,-------|      |  4   |  5   |  6   |  ,   |  .   |
+ * |------+------+------+------+------+------|       |    |PrtScr |------+------+------+------+------+------|
+ * |      | (GUI)| (ALT)| (CTL)| (L4) |      |       |    |       |      | (L4) |(CTL) |(ALT) |      |      |
+ * |      | ESC  | Tab  |Insert|Enter | UNDO |-------|    |-------|      |  1   |  2   |  3   |      | LGui |
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *                   |      |      |      | /(SHFT) /       \(SHFT)\  |      |      |      |
+ *                   | LAlt | LOWER| ESC  | /Enter  /       \  0   \  |BackSP| RAISE| RCtl |
+ *                   |      |      |      |/       /         \      \ |      |      |      |
+ *                   `----------------------------'           '------''--------------------'
+ */
+  [_NEO_4] = LAYOUT(
+  XXXXXXX, XXXXXXX,        XXXXXXX,        XXXXXXX,        XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX,       XXXXXXX,       XXXXXXX, XXXXXXX,
+  XXXXXXX, KC_PGUP,        KC_BSPC,        KC_UP,          KC_DEL,  KC_PGDN,                   XXXXXXX, KC_P7,   KC_P8,         KC_P9,         KC_PPLS, KC_PMNS,
+  XXXXXXX, KC_HOME,        KC_LEFT,        KC_DOWN,        KC_RGHT, KC_END,                    XXXXXXX, KC_P4,   KC_P5,         KC_P6,         KC_PCMM, KC_PDOT,
+  XXXXXXX, LGUI_T(KC_ESC), LALT_T(KC_TAB), LCTL_T(KC_INS), KC_PENT, KC_UNDO, _______, KC_PSCR, XXXXXXX, KC_P1,   LCTL_T(KC_P2), LALT_T(KC_P3), XXXXXXX, KC_LGUI,
+                                                _______, _______, _______, _______,    RSFT_T(KC_P0),  _______, _______, _______
+  ),
 };
+
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
