@@ -1,9 +1,9 @@
 [X] - Layer 3 links (-> fest capslock)
 [X] - Homerow Mods?
 [X] - Homerow Mods für Layer 3 rechts
-[ ] - Homerow Mods + arrows in layer 4?
+[X] - Homerow Mods + arrows in layer 4?
+[X] - Neo Layer 4 in QMK nachbauen
 [ ] - Homerow Mods + doppel Tap für Wiederholung?
-[ ] - Neo Layer 4 in QMK nachbauen
 [ ] - Homerow Mods feintunen
 [ ] - Combos für Mods statt Homerow Mods?
-
+[ ] - momentary default layer von "neo4 layer"
