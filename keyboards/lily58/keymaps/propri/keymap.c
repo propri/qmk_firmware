@@ -18,9 +18,6 @@ enum layer_number {
 #define NEO_LAYER4_MOMENTARY_LEFT LT(4, KC_V)
 #define NEO_LAYER4_MOMENTARY_RIGHT LT(4, KC_M)
 
-#define NL4M_L NEO_LAYER4_MOMENTARY_LEFT
-#define NL4M_R NEO_LAYER4_MOMENTARY_RIGHT
-
 // mod-tap shortcuts base layer
 #define MT_Z LGUI_T(KC_Z)
 #define MT_X LALT_T(KC_X)
