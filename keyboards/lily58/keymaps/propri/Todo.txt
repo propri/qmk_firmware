@@ -7,3 +7,4 @@
 [ ] - Homerow Mods feintunen
 [ ] - Combos für Mods statt Homerow Mods?
 [ ] - momentary default layer von "neo4 layer"
+[ ] - Combo für shift(space) + shift(enter) um sofort (neo) capslock zu aktivieren
