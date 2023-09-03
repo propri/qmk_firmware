@@ -15,6 +15,15 @@
  */
 #include QMK_KEYBOARD_H
 
+enum layer_names {
+    _QWERTY,
+    _LOWER,
+    _RAISE,
+    _NEO_4,
+
+    NUMBER_OF_LAYERS
+};
+
 #define KC_VU KC_AUDIO_VOL_UP
 #define KC_VD KC_AUDIO_VOL_DOWN
 #define KC_MU KC_AUDIO_MUTE
@@ -47,15 +56,6 @@ const uint16_t PROGMEM combo_layer4_disable[] = {KC_PENT, KC_P1, COMBO_END};
 combo_t key_combos[] = {
   COMBO(combo_layer4_enable, TG(_NEO_4)),
   COMBO(combo_layer4_disable, TG(_NEO_4)),
-};
-
-enum layer_names {
-    _QWERTY,
-    _LOWER,
-    _RAISE,
-    _NEO_4,
-
-    NUMBER_OF_LAYERS
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
