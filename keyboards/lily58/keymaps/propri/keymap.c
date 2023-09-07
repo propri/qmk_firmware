@@ -11,6 +11,11 @@ enum layer_number {
   _NEO_4,
 };
 
+enum custom_keycodes {
+  _KONAMI_CODE = SAFE_RANGE,
+  _VIM_EXIT_TERMINAL,
+};
+
 // combined key - layer 3 on hold, y on tap (with neo layout)
 #define NEO_LAYER3_Y LT(0, KC_QUOT)
 
@@ -129,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT(
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DT_UP,   XXXXXXX,                   XXXXXXX, KC_BRIU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DT_PRNT, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DT_PRNT, _VIM_EXIT_TERMINAL,                   _KONAMI_CODE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DT_DOWN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BRID, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                              _______, _______, _______, _______, _______,  _______, _______, _______
   ),
@@ -228,6 +233,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case NEO_LAYER3_Y:
   return process_tap_or_long_press_custom_mod_key(record, KC_NUHS);
+    case _KONAMI_CODE:
+      if (record->event.pressed) {
+        // "ba" because browsers always use qwerty layout?
+        SEND_STRING(SS_DELAY(10)SS_TAP(X_UP)SS_DELAY(10)SS_TAP(X_UP)SS_DELAY(10)SS_TAP(X_DOWN)SS_DELAY(10)SS_TAP(X_DOWN)SS_DELAY(10)SS_TAP(X_LEFT)SS_DELAY(10)SS_TAP(X_RGHT)SS_DELAY(10)SS_TAP(X_LEFT)SS_DELAY(10)SS_TAP(X_RIGHT)SS_DELAY(10)"ba");
+      }
+      return false;
+    case _VIM_EXIT_TERMINAL:
+      if (record->event.pressed) {
+        // ctrl-a ctrl-j because neo makes it u j
+        SEND_STRING(SS_LCTL(SS_DOWN(X_CAPS)SS_DELAY(20)"a"SS_DELAY(50)SS_UP(X_CAPS)SS_DELAY(20)"j"));
+      }
+      return false;
   }
   return true;
 }
