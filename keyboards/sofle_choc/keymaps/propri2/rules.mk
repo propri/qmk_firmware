@@ -14,3 +14,6 @@ LTO_ENABLE = yes
 
 # Enable combos
 COMBO_ENABLE = yes
+
+# enable dynamic changing of tapping term (recognize tap vs hold)
+DYNAMIC_TAPPING_TERM_ENABLE = yes
