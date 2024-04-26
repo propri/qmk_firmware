@@ -2,6 +2,8 @@
 
 // hoffentlich seltener hold keys versehentlich getriggert
 #define PERMISSIVE_HOLD
+// hoffentlich seltener hold key nicht getriggert?
+#define HOLD_ON_OTHER_KEY_PRESS
 
 enum layer_number {
   _QWERTY = 0,
