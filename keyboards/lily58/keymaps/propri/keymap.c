@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  | LGUI |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   |      |      |      | /(SHFT) /       \(SHFT)\  |      |      |      |
- *                   | LAlt | LOWER| ESC  | /Enter  /       \Space \  |BackSP| RAISE| RCtl |
+ *                   | LAlt | LOWER| Enter| / ESC  /       \Space \  |BackSP| RAISE| RCtl |
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Q, KC_W, KC_E, KC_R, KC_T,                    KC_Y, KC_U, KC_I,    KC_O,   KC_P,    KC_LBRC,
   KC_NUHS, KC_A, KC_S, KC_D, KC_F, KC_G,                    KC_H, KC_J, KC_K,    KC_L,   KC_SCLN, NEO_LAYER3_Y,
   KC_LSFT, MT_Z, MT_X, MT_C, MT_V, KC_B, KC_DEL,   KC_F12,  KC_N, MT_M, MT_COMM, MT_DOT, KC_SLSH, KC_LGUI,
-   KC_LALT, MO(_LOWER), KC_ESC, LSFT_T(KC_ENT),    RSFT_T(KC_SPC), KC_BSPC, MO(_RAISE), KC_RCTL
+   KC_LALT, MO(_LOWER), KC_ENT, LSFT_T(KC_ESC),    RSFT_T(KC_SPC), KC_BSPC, MO(_RAISE), KC_RCTL
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
