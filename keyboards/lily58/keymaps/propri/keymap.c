@@ -234,7 +234,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   switch (keycode) {
     case NEO_LAYER3_Y:
-  return process_tap_or_long_press_custom_mod_key(record, KC_NUHS);
+      return process_tap_or_long_press_custom_mod_key(record, KC_NUHS);
     case _KONAMI_CODE:
       if (record->event.pressed) {
         // "ba" because browsers always use qwerty layout?
