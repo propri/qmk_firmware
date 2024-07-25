@@ -12,3 +12,4 @@ COMBO_ENABLE = yes
 DYNAMIC_TAPPING_TERM_ENABLE = yes
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 
+NO_USB_STARTUP_CHECK = yes
