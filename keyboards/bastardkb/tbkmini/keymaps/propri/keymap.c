@@ -49,6 +49,17 @@ enum custom_keycodes {
 #define MT_COMM LCTL_T(KC_COMM)
 #define MT_DOT LALT_T(KC_DOT)
 
+// define combos
+// both layer4 Taps to lock layer4
+const uint16_t PROGMEM combo_layer4_enable[] = {NEO_LAYER4_MOMENTARY_LEFT, NEO_LAYER4_MOMENTARY_RIGHT, COMBO_END};
+// both layer4 Taps on locked layer4 to return to default layer
+const uint16_t PROGMEM combo_layer4_disable[] = {KC_PENT, KC_P1, COMBO_END};
+
+combo_t key_combos[] = {
+  COMBO(combo_layer4_enable, TG(_NEO_4)),
+  COMBO(combo_layer4_disable, TG(_NEO_4)),
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
